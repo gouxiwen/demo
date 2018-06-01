@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        本demo仅供参考，不能正常运行
+    <div class="p20_50">
+        <form name="uploadInsuranceForm" method="post" beanClass="WJS.Bean.Form" action="upLoadCsvFile.do" enctype="multipart/form-data" target="finishFrame">
+            <p class="fileBox">
+                <span class="btnGrayS b-dib">选择文件</span>
+                <span class="ml10" id="fileTip">请选择文件</span>
+                <input type="file" validators="notnull" name="fileName" id="fileName" class="input1 fileBtn" />
+            </p>
+            <p class="tc mt20">
+                <span class="formBtn" id="uploadButton"> <i class="icon14_common uplaod14"></i> <span>导入</span> </span>
+            </p>
+        </form>
+        <div id="csvResult" class="csvResult"></div>
+    </div>
+</body>
+<script>
+    $("#uploadButton").click(function(){
+        //document.uploadInsuranceForm.action = "http://test-wp-txt.pingan.com.cn:9080/CAS/rest/upLoadCsvFile?"+"groupId="+groupId;
+        document.uploadInsuranceForm.action = App.getServerUrl('upLoadCsvFile') +"?groupId="+groupId;
+        document.uploadInsuranceForm.submit();
+    });
+    function loadFunc(){
+        try{
+            var responseText = $(window.finishFrame.document.body).text();
+            responseText = JSON.parse(responseText);
+        }catch(e){
+            return;
+        }
+        var date = responseText.dateString;
+        var errMessage = responseText.errorMessages;
+        var resultCode = responseText.resultCode;
+        var resultMessage = responseText.resultMessage;
+        var result = document.createElement("p");
+        result.innerText = resultMessage;
+        $("#csvResult").html(result);
+        $("#dlResult").show();
+    }
+    var finishFrame = document.createElement("iframe");
+    finishFrame.name = "finishFrame"
+    //finishFrame.onload = loadFunc;
+    if (finishFrame.attachEvent){ 
+        finishFrame.attachEvent("onload", loadFunc); 
+    } else { 
+        finishFrame.onload = loadFunc;
+    }
+    finishFrame.style.display = 'none';
+    document.body.appendChild(finishFrame);
+</script>
+</html>

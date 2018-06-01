@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    本demo仅供参考，不能正常运行
+</body>
+<script>
+    //数据导出(默认get)
+    function publicDataQueryExport(postData, postNameExport, su, fail){
+        var url = App.getWebServiceUrl(postNameExport);
+        window.location.href = url + '?' +parseData(postData);//带少量参数
+        window.open(App.getServerUrl('downLoadVolPresetRes'));//不带参数
+    };
+    //格式化参数
+    function parseData(data) {
+        var str = "", key;
+        if ("object" == typeof data)
+            for (key in data)
+                "object" == typeof data[key] ? str += parseData(data[key]) : data[key] && (str += key + "=" + data[key] + "&");
+        return str = str.replace(/(&$)/g, "")
+    };
+    //数据导出(post)，参数较多
+    function postDataQueryExport(options){
+        var config = $.extend(true, { method: 'post' }, options);
+        var $iframe = $('<iframe id="down-file-iframe" />');
+        var $form = $('<form target="down-file-iframe" method="' + config.method + '" />');
+        $form.attr('action', config.url);
+        for (var key in config.data) {
+        $form.append('<input type="hidden" name="' + key + '" value="' + config.data[key] + '" />');
+            }
+        $iframe.append($form);
+        $(document.body).append($iframe);
+        $form[0].submit();
+        $iframe.remove();
+    }
+</script>
+</html>

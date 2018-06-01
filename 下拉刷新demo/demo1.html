@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>下拉刷新插件</title>
+    <!-- 样式初始化 -->
+    <link rel="stylesheet" href="./refresher/reset.css"/>
+    <link rel="stylesheet" href="./refresher/pullToRefresh.css" />
+    <script src="./refresher/iscroll.js"></script>
+    <script src="./refresher/pullToRefresh.js"></script>
+    <!-- <script src="./refresher/colorful.js"></script> -->
+    <style type="text/css" media="all">
+        body, html {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        font-family: Arial, Microsoft YaHei;
+        color: #111;
+        }
+        li {
+            /*border-bottom: 1px #CCC solid;*/
+            text-align: center;
+            line-height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+        </ul>
+    </div>
+</body>
+<script>
+   
+        refresher.init({
+            id:"wrapper",//<------------------------------------------------------------------------------------┐
+            pullDownAction:Refresh,                                                            
+            pullUpAction:Load 																			
+            });																						
+        var generatedCount = 0;																			
+        function Refresh() {																
+            setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
+               
+                console.log("下拉成功");
+                wrapper.refresh();
+            }, 1000);
+        
+        }
+        
+        function Load() {
+            setTimeout(function () {// <-- Simulate network congestion, remove setTimeout from production!
+                
+                console.log("上拉成功");
+                wrapper.refresh();
+            }, 1000);	
+        }
+</script>
+</html>

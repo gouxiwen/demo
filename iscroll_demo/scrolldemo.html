@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./iscroll.js"></script>
+    <style>
+        #wrapper{
+            border: 1px solid black;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 200px;
+            height: 100px;
+        }
+        ul,li{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    </style>
+    <script>
+        var iScoller;
+        function loaded(){
+        var iScoller = new IScroll("#wrapper", {
+                scrollbars: true,
+                zoom: true,
+                mouseWheel: true,
+                wheelAction: 'zoom'
+            });
+            iScoller.on('scrollEnd', function () {
+                console.log(this.y);
+                console.log(this.maxScrollY);
+               
+            });
+            iScoller.scrollTo(0, -200);
+            var targetUrl = document.referrer;
+            console.log(location.href);
+            console.log(targetUrl);
+        }
+    </script>
+</head>
+<body onload="loaded()">
+    <div id="wrapper" >
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <a href="to.html">跳转</a>
+        </ul>
+    </div>
+    
+</body>
+</html>
