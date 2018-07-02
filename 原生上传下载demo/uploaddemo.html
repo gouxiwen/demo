@@ -8,6 +8,7 @@
 </head>
 <body>
         本demo仅供参考，不能正常运行
+        <!-- demo1 -->
     <div class="p20_50">
         <form name="uploadInsuranceForm" method="post" beanClass="WJS.Bean.Form" action="upLoadCsvFile.do" enctype="multipart/form-data" target="finishFrame">
             <p class="fileBox">
@@ -15,6 +16,7 @@
                 <span class="ml10" id="fileTip">请选择文件</span>
                 <input type="file" validators="notnull" name="fileName" id="fileName" class="input1 fileBtn" />
             </p>
+        <!-- demo2 -->
             <p class="tc mt20">
                 <span class="formBtn" id="uploadButton"> <i class="icon14_common uplaod14"></i> <span>导入</span> </span>
             </p>
@@ -23,11 +25,13 @@
     </div>
 </body>
 <script>
+    // demo1
     $("#uploadButton").click(function(){
         //document.uploadInsuranceForm.action = "http://test-wp-txt.pingan.com.cn:9080/CAS/rest/upLoadCsvFile?"+"groupId="+groupId;
         document.uploadInsuranceForm.action = App.getServerUrl('upLoadCsvFile') +"?groupId="+groupId;
         document.uploadInsuranceForm.submit();
     });
+// demo2通过创建ifram获取上传结果
     function loadFunc(){
         try{
             var responseText = $(window.finishFrame.document.body).text();
